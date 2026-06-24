@@ -1,0 +1,133 @@
+
+
+.app-shell{
+  height: 100vh;
+  background: skyblue;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  overflow-y: auto;
+
+}
+
+.card{
+  padding: 42px;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 20px;
+  width: min(100%,450px);
+  align-items: center;
+}
+
+.input-shell {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+
+.matrix {
+  width: 220px;
+  display: inline-block;
+  position: relative;
+  padding: 10px 20px;
+}
+
+.matrix::before,
+.matrix::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 12px;
+}
+
+.matrix::before {
+  left: 0;
+  border-left: 3px solid black;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+.matrix::after {
+  right: 0;
+  border-right: 3px solid black;
+  border-top: 3px solid black;
+  border-bottom: 3px solid black;
+}
+
+.input-shell {
+  display: grid;
+  grid-template-columns: repeat(3, 60px);
+  gap: 8px;
+}
+
+.mat-input {
+  width: 40px;
+  height: 50px;
+  border: none;
+  border-bottom: 1px solid #aaa;
+  text-align: center;
+  font-size: 1.1rem;
+  outline: none;
+  &:focus{
+    border-bottom:1px solid #636363 ;
+  }
+}
+
+.calculate-box{
+  width: 100%;
+  display: flex;
+  justify-content: right;
+  
+  
+}
+.calculate-btn{
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: blueviolet;
+  border: 1px solid blue;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  transition: all 0.2s ease;
+  &:hover{
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgb(208, 207, 207) ;
+  }
+  &:active{
+    background: rgba(137, 43, 226, 0.85);
+  }
+}
+.result{
+  background: whitesmoke;
+  padding: 42px;
+  border-radius: 12px;
+  width: min(100%,450px);
+  margin-bottom: 20px;
+  
+}
+.result.hide{
+  display: none;
+}
+.result-mat {
+  display: flex;
+  gap: 8px;
+}
+.result-mat .side-note{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rank-show{
+  font-size: 28px;
+  text-align: center;
+  padding: 8px;
+  text-shadow: 0px 1px 0px black;
+}
