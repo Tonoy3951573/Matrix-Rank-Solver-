@@ -22,6 +22,19 @@ function App() {
     setMatrix(newMatrix);
   };
 
+  const handleDimensionChange = (size) => {
+    setShow(false);
+    const newMatrix = Array.from({ length: size }, (_, r) =>
+      Array.from({ length: size }, (_, c) => {
+        if (matrix[r] && matrix[r][c] !== undefined) {
+          return matrix[r][c];
+        }
+        return "";
+      })
+    );
+    setMatrix(newMatrix);
+  };
+
   const handleClick = () => {
     setShow(true);
     const solverResult = rankSolver(matrix);
@@ -40,7 +53,22 @@ function App() {
           <p>With steps!</p>
         </div>
 
-        <p className="title">Enter Your 3 × 3 Matrix</p>
+        <div className="dimension-selector">
+          <label htmlFor="dimension-select">Matrix Size: </label>
+          <select
+            id="dimension-select"
+            value={matrix.length}
+            onChange={(e) => handleDimensionChange(Number(e.target.value))}
+          >
+            {[2, 3, 4, 5, 6].map((size) => (
+              <option key={size} value={size}>
+                {size} × {size}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <p className="title">Enter Your {matrix.length} × {matrix.length} Matrix</p>
 
         <InputMatrix matrix={matrix} handleChange={handleChange} />
 

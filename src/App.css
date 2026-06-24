@@ -8,25 +8,28 @@
 
 }
 
-.card{
+.card {
   padding: 42px;
   background: white;
   display: flex;
   flex-direction: column;
   gap: 32px;
   align-items: center;
-  width: 500px;
+  width: max-content;
+  min-width: 320px;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .input-shell {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 8px;
 }
 
-
 .matrix {
-  width: 220px;
+  width: max-content;
+  max-width: 100%;
+  box-sizing: border-box;
   display: inline-block;
   position: relative;
   padding: 10px 20px;
@@ -55,14 +58,7 @@
   border-bottom: 3px solid black;
 }
 
-.input-shell {
-  display: grid;
-  grid-template-columns: repeat(3, 60px);
-  gap: 8px;
-}
-
 .mat-input {
-  width: 40px;
   height: 50px;
   border: none;
   border-bottom: 1px solid #aaa;
@@ -72,6 +68,32 @@
   &:focus{
     border-bottom:1px solid #636363 ;
   }
+}
+
+.dimension-selector {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.dimension-selector select {
+  padding: 8px 16px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: white;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dimension-selector select:hover,
+.dimension-selector select:focus {
+  border-color: blueviolet;
+  box-shadow: 0 0 0 2px rgba(137, 43, 226, 0.2);
 }
 
 .mat-input::placeholder{
@@ -192,17 +214,14 @@
   }
 
   .matrix{
-    width: 160px;
     padding: 8px 12px;
   }
 
   .input-shell{
-    grid-template-columns: repeat(3, 1fr);
     gap: 6px;
   }
 
   .mat-input{
-    width: 44px;
     height: 44px;
     font-size: 1rem;
   }
@@ -230,9 +249,5 @@
   .card{
     width: min(100%, 420px);
     padding: 32px;
-  }
-
-  .matrix{
-    width: 200px;
   }
 }

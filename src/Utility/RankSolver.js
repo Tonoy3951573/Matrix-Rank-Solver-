@@ -22,220 +22,78 @@ function rankSolver(mat) {
     operation: "Initial Matrix",
   });
 
-  if (mat[0][0] === 0) {
-        for (let r = 1; r < 3; r++) {
-        if (mat[r][0] !== 0) {
-            [mat[0], mat[r]] =
-            [mat[r], mat[0]];
+  const N = mat.length;
 
-            steps.push({
+  for (let i = 0; i < N; i++) {
+    // 1. Check if mat[i][i] is 0, if so, swap rows
+    if (mat[i][i] === 0) {
+      for (let r = i + 1; r < N; r++) {
+        if (mat[r][i] !== 0) {
+          [mat[i], mat[r]] = [mat[r], mat[i]];
+          steps.push({
             matrix: copyMatrix(mat),
-            operation: `R1 \\leftrightarrow R${r + 1}`,
-            });
-
-            break;
+            operation: `R${i + 1} \\leftrightarrow R${r + 1}`,
+          });
+          break;
         }
-        }
+      }
     }
 
-    if(mat[0][0] === 0){
-        for (let c = 1; c < 3; c++) {
-            if (mat[0][c] !== 0) {
-
-                // [mat[0][0], mat[0][c]] =
-                // [mat[0][c],mat[0][0]];
-
-                // [mat[1][0], mat[1][c]] =
-                // [mat[1][c],mat[1][0]];
-                
-
-                // [mat[1][0], mat[1][c]] =
-                // [mat[1][c],mat[1][0]];
-
-                 let temp = mat[0][0];
-                mat[0][0] = mat[0][c];
-                mat[0][c] = temp;
-
-                temp = mat[1][0];
-                mat[1][0] = mat[1][c];
-                mat[1][c] = temp;
-
-                temp = mat[2][0];
-                mat[2][0] = mat[2][c];
-                mat[2][c] = temp;
-
-                steps.push({
-                matrix: copyMatrix(mat),
-                operation: `C1 \\leftrightarrow C${c + 1}`,
-                });
-
-                break;
-            }
+    // 2. Check if mat[i][i] is still 0, if so, swap columns
+    if (mat[i][i] === 0) {
+      for (let c = i + 1; c < N; c++) {
+        if (mat[i][c] !== 0) {
+          for (let r = 0; r < N; r++) {
+            let temp = mat[r][i];
+            mat[r][i] = mat[r][c];
+            mat[r][c] = temp;
+          }
+          steps.push({
+            matrix: copyMatrix(mat),
+            operation: `C${i + 1} \\leftrightarrow C${c + 1}`,
+          });
+          break;
         }
+      }
     }
 
-    const pivot = mat[0][0];
-
+    // 3. Normalize pivot to 1
+    const pivot = mat[i][i];
     if (pivot !== 1 && pivot !== 0) {
-        mat[0] = mat[0].map(
-            value => value / pivot
-        );
-
-        steps.push({
-            matrix: copyMatrix(mat),
-            operation: `R1 \\to R1 / ${pivot}`,
-        });
+      mat[i] = mat[i].map(value => value / pivot);
+      steps.push({
+        matrix: copyMatrix(mat),
+        operation: `R${i + 1} \\to R${i + 1} / ${pivot}`,
+      });
     }
 
-    let k = mat[1][0], m = mat[2][0];
-    if(k != 0){
-        let minus = mat[0].map((value) => value*k);
-        for(let i = 0; i < 3; i++){
-            mat[1][i] -= minus[i];
+    // 4. Row reductions below the pivot
+    for (let r = i + 1; r < N; r++) {
+      const k = mat[r][i];
+      if (k !== 0) {
+        const minus = mat[i].map(value => value * k);
+        for (let col = 0; col < N; col++) {
+          mat[r][col] -= minus[col];
         }
-
         steps.push({
-            matrix: copyMatrix(mat),
-            operation: `R2 \\to R2 - ${k}*R1)`,
+          matrix: copyMatrix(mat),
+          operation: `R${r + 1} \\to R${r + 1} - ${k}*R${i + 1}`,
         });
-
+      }
     }
 
-    if(m != 0){
-        let minus = mat[0].map((value) => value*m);
-        for(let i = 0; i < 3; i++){
-            mat[2][i] -= minus[i];
-        }
-
+    // 5. Column reductions to the right of the pivot
+    for (let c = i + 1; c < N; c++) {
+      const k = mat[i][c];
+      if (k !== 0) {
+        mat[i][c] = 0;
         steps.push({
-            matrix: copyMatrix(mat),
-            operation: `R3 \\to R3 - ${m}*R1`,
+          matrix: copyMatrix(mat),
+          operation: `C${c + 1} \\to C${c + 1} - ${k}*C${i + 1}`,
         });
-
+      }
     }
-
-    k = mat[0][1] ;
-
-    if(k !== 0){
-        mat[0][1] = 0;
-        steps.push({
-            matrix: copyMatrix(mat),
-            operation: `C2 \\to C2 - ${k}*C1`,
-        });
-    }
-    
-
-    m = mat[0][2] ;
-    if(m !== 0){
-        mat[0][2] = 0;
-        steps.push({
-            matrix: copyMatrix(mat),
-            operation: `C3 \\to C3 - ${m}*C1`,
-        });
-    }
-
-    if (mat[1][1] === 0) {
-        for (let r = 1; r < 3; r++) {
-        if (mat[r][1] !== 0) {
-            [mat[1], mat[r]] =
-            [mat[r], mat[1]];
-
-            steps.push({
-            matrix: copyMatrix(mat),
-            operation: `R1 \\leftrightarrow R${r + 1}`,
-            });
-
-            break;
-        }
-        }
-   }
-
-    if(mat[1][1] === 0){
-        for (let c = 1; c < 3; c++) {
-            if (mat[1][c] !== 0) {
-
-                // [mat[0][1], mat[0][c]] =
-                // [mat[0][c], mat[0][1]];
-
-                // [mat[1][1], mat[1][c]] =
-                // [mat[1][c],mat[1][1]];
-                
-
-                // [mat[1][1], mat[1][c]] =
-                // [mat[1][c],mat[1][1]];
-
-                let temp = mat[0][1];
-                mat[0][1] = mat[0][c];
-                mat[0][c] = temp;
-
-                temp = mat[1][1];
-                mat[1][1] = mat[1][c];
-                mat[1][c] = temp;
-
-                temp = mat[2][1];
-                mat[2][1] = mat[2][c];
-                mat[2][c] = temp;
-
-                steps.push({
-                matrix: copyMatrix(mat),
-                operation: `C2 \\leftrightarrow C${c + 1}`,
-                });
-
-                break;
-            }
-        }
-    }
-
-    if (mat[1][1] !== 1 && mat[1][1] !== 0) {
-        const pivot = mat[1][1];
-
-        mat[1] = mat[1].map(
-            value => value / pivot
-        );
-
-        steps.push({
-            matrix: copyMatrix(mat),
-            operation: `R2 \\to R2 / ${pivot}`,
-        });
-    }
-
-    k = mat[2][1];
-    if(k != 0){
-        let minus = mat[1].map((value) => value*k);
-        for(let i = 0; i < 3; i++){
-            mat[2][i] -= minus[i];
-        }
-
-        steps.push({
-            matrix: copyMatrix(mat),
-            operation: `R3 \\to R3 - ${k}*R2`,
-        });
-
-    }
-
-    k = mat[1][2] ;
-    if(k !== 0){
-        mat[1][2] = 0;
-        steps.push({
-            matrix: copyMatrix(mat),
-            operation: `C3 \\to C3 - ${k}*C2`,
-        });
-    }
-    
-
-    if (mat[2][2] !== 1 && mat[2][2] !== 0) {
-        const pivot = mat[2][2];
-
-        mat[2] = mat[2].map(
-            value => value / pivot
-        );
-
-        steps.push({
-            matrix: copyMatrix(mat),
-            operation: `R3 \\to R3 / ${pivot}`,
-        });
-    }
-  
+  }
 
   return {
     rank: findRank(mat),
