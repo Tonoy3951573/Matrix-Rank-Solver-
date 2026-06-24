@@ -181,6 +181,10 @@
 
 /* Mobile responsiveness */
 @media (max-width: 600px) {
+
+  .app-shell{
+    display: block;
+  }
   .card{
     padding: 24px;
     gap: 20px;
