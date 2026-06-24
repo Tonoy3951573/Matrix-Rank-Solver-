@@ -4,7 +4,7 @@
   height: 100vh;
   background:white;
   display: flex;
-  overflow-y: auto;
+  overflow: auto;
 
 }
 
@@ -19,6 +19,7 @@
   min-width: 320px;
   max-width: 100%;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .input-shell {
@@ -33,6 +34,7 @@
   display: inline-block;
   position: relative;
   padding: 10px 20px;
+  overflow-x: auto;
 }
 
 .matrix::before,
@@ -210,7 +212,10 @@
   .card{
     padding: 24px;
     gap: 20px;
-    width: min(100%, 360px);
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
   }
 
   .matrix{
