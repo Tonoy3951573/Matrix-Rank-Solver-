@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
-  base: "/Matrix-Rank-Solver-/",
-});
+  // Use the GitHub Pages basename only for production builds;
+  // keep `/` (absolute) for the dev server to avoid empty-base errors.
+  base: command === 'build' ? '/Matrix-Rank-Solver-/' : '/',
+}));

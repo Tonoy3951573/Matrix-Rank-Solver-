@@ -2,11 +2,8 @@
 
 .app-shell{
   height: 100vh;
-  background: skyblue;
+  background:white;
   display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 16px;
   overflow-y: auto;
 
 }
@@ -14,13 +11,11 @@
 .card{
   padding: 42px;
   background: white;
-  border-radius: 12px;
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin-top: 20px;
-  width: min(100%,450px);
   align-items: center;
+  width: 500px;
 }
 
 .input-shell {
@@ -79,6 +74,10 @@
   }
 }
 
+.mat-input::placeholder{
+  color:#aaa ;
+}
+
 .calculate-box{
   width: 100%;
   display: flex;
@@ -107,14 +106,12 @@
 .result{
   background: whitesmoke;
   padding: 42px;
-  border-radius: 12px;
-  width: min(100%,450px);
-  margin-bottom: 20px;
+  width: 100%;
+  overflow-y: auto;
+  height: 100vh;
   
 }
-.result.hide{
-  display: none;
-}
+
 .result-mat {
   display: flex;
   gap: 8px;
@@ -126,8 +123,56 @@
 }
 
 .rank-show{
-  font-size: 28px;
-  text-align: center;
+  font-size: 18px;
   padding: 8px;
-  text-shadow: 0px 1px 0px black;
+}
+
+.answer{
+  display: flex;
+  flex-direction: column;
+  padding-left:80px;
+  padding-top: 16px;
+}
+
+.msg{
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px; 
+  color: #636363;
+}
+
+.header
+{
+  width: 100%;
+  border-bottom: 1px solid #aaa;
+  padding: 20px;
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.rank-card{
+  width: 250px;
+  height: 250px;
+  background: whitesmoke;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px #dad8d8;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.place-holder{
+  color: #636363;
+}
+.Rank p{
+  color:blue;
+  font-weight: bold;
+  font-size: 18px;
 }

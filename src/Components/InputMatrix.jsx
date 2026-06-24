@@ -12,6 +12,7 @@ return(
                       handleChange(rowIndex, colIndex, e.target.value)
                     }
                     className="mat-input"
+                    placeholder="0"
                   />
                 )),
               )}

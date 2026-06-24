@@ -49,26 +49,46 @@ function App() {
             Calculate
           </button>
         </div>
+        <div className="rank-card">
+            {!isShow && (<p className="place-holder">Rank will apear here</p>)}
+             {isShow && (<>
+                  <p> Matrix </p>
+                  <MatrixCard matrix={matrix} sideNote=""/>
+                  <div className="Rank">
+                          <p>
+                            Rank = {result.rank}
+                          </p>
+                  </div>
+             </>)}
+
+
+        </div>
       </div>
-
-      <div className={`result ${!isShow ? "hide" : ""}`}>
-        {isShow &&
-          (isMatrixEmpty ? (
-            <p>Enter Matrix First</p>
-          ) : (
-            <>
-              <h1>Solution : </h1>
-              {steps.map((step, index) => (
-                <MatrixCard
-                  key={index}
-                  matrix={step.matrix}
-                  sideNote={step.operation}
-                />
-              ))}
-
-              <p className="rank-show">Rank : {result.rank}</p>
-            </>
-          ))}
+      <div className="wrapper">
+        <div className="header">
+          <h1>Step by step solution</h1>
+        </div>
+        <div className={`result `}>
+          {!isShow && <div className="msg" >Nothing to calculate yet!</div>}
+          {isShow &&
+            (isMatrixEmpty ? (
+              <div className="msg">Enter Matrix First</div>
+            ) : (
+              <>
+                <h2>Solution : </h2>
+                <div className="answer">
+                  {steps.map((step, index) => (
+                    <MatrixCard
+                      key={index}
+                      matrix={step.matrix}
+                      sideNote={step.operation}
+                    />
+                  ))}
+                </div>
+                <p className="rank-show">so, rank of this matrix is : {result.rank}</p>
+              </>
+            ))}
+        </div>
       </div>
     </div>
   );
