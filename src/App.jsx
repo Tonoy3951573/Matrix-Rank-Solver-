@@ -2,7 +2,8 @@ import { useState } from "react";
 import "./App.css";
 import MatrixCard from "./Components/MatrixCard";
 import InputMatrix from "./Components/InputMatrix";
-import rankSolver from "./Utility/RankSolver";
+// import rankSolver from "./Utility/RankSolver";
+import rankSolver from "./Utility/BetterRankSolver";
 
 function App() {
   const [matrix, setMatrix] = useState([
@@ -38,7 +39,6 @@ function App() {
   const handleClick = () => {
     setShow(true);
     const solverResult = rankSolver(matrix);
-
     setResult(solverResult);
     setSteps(solverResult.steps);
   };
